@@ -235,6 +235,8 @@ export default class BaseGame {
 					frame.score + getRunway(frame.level, RUNWAY.TRANSITION, frame.lines),
 				normalized: 0,
 				transition: null,
+				// calculate post-transition equivalent only when start from lv19
+				post_tr_eq: frame.level === 19 ? 0 : -1,
 
 				runways: {
 					LV19: frame.score + getRunway(frame.level, RUNWAY.LV19, frame.lines),
@@ -534,6 +536,13 @@ export default class BaseGame {
 				// weird reading (score goes lower than it was)
 				// but we do nothing and will accept it anyway
 			}
+		}
+
+		// Accumulate pseudo score until 100 lines
+		if (this.data.score.post_tr_eq >= 0 && this.data.lines < 100) {
+			const level_tr_eq = 19 + Math.floor(data.lines / 10);
+			const lines_score_tr_eq = (SCORE_BASES[cleared] || 0) * (level_tr_eq + 1);
+			this.data.score.post_tr_eq += lines_score_tr_eq;
 		}
 
 		const score_increment = real_score - this.data.score.current;

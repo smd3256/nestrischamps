@@ -302,6 +302,18 @@ function renderScore(frame) {
 		}
 	}
 
+	if (dom.post_tr_eq) {
+		const sc = point_evt.score.post_tr_eq;
+		if (sc >= 0) {
+			dom.post_tr_eq.value.textContent = sc
+				.toString()
+				.padStart(6, '0')
+				.padStart(7, ' ');
+		} else {
+			dom.post_tr_eq.value.textContent = '------';
+		}
+	}
+
 	// could be moved to a different method renderTransition()
 	if (point_evt.score.transition) {
 		dom.score.transition.textContent = point_evt.score.transition

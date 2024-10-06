@@ -45,6 +45,16 @@ export default class DomRefs {
 			};
 		}
 
+		const post_tr_eq = doc.querySelector('#post_tr_eq');
+
+		if (post_tr_eq) {
+			this.post_tr_eq = {
+				element: post_tr_eq,
+				header: post_tr_eq.querySelector('.header'),
+				value: post_tr_eq.querySelector('.content'),
+			};
+		}
+
 		const lines = doc.querySelector('#lines');
 
 		if (lines) {
